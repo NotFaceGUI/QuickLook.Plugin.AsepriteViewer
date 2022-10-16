@@ -1,4 +1,7 @@
 # QuickLook.Plugin.AsepriteViewer
+![GitHub](https://img.shields.io/github/license/NotFaceGUI/QuickLook.Plugin.AsepriteViewer)
+![GitHub all releases](https://img.shields.io/github/downloads/NotFaceGUI/QuickLook.Plugin.AsepriteViewer/total)
+
 
 <img title="" src="img/ase.png" alt="" data-align="center">
 
