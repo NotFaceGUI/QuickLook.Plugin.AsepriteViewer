@@ -7,7 +7,7 @@
 
 ## Download and Installation
 
-1. Go to [Release page](https://github.com/QL-Win/QuickLook.Plugin.HelloWorld/releases) and download the latest version.
+1. Go to [Release page](https://github.com/NotFaceGUI/QuickLook.Plugin.AsepriteViewer/releases) and download the latest version.
 2. Make sure that you have QuickLook running in the background. Go to your Download folder, and press <key>Spacebar</key> on the downloaded `.qlplugin` file.
 3. Click the “Install” button in the popup window.
 4. Restart QuickLook.
