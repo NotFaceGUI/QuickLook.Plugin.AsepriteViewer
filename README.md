@@ -1,6 +1,6 @@
 # QuickLook.Plugin.AsepriteViewer
 
-<img title="" src="file:///D:/!DEV/script/QuickLook.Plugin.AsepriteViewer/img/ase.png" alt="" data-align="center">
+<img title="" src="img/ase.png" alt="" data-align="center">
 
 ## Download and Installation
 
