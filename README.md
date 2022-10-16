@@ -13,7 +13,7 @@
 4. Restart QuickLook.
 5. Select the file and press <key>Spacebar</key> `.ase` `.aseprite`.
 
-## Thinks To
+## Thanks to
 
 - [QuickLook.Plugin.ImageViewer](https://github.com/QL-Win/QuickLook/)
 - [Aseprite](https://github.com/aseprite/aseprite)
