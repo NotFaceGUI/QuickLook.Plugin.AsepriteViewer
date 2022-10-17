@@ -40,6 +40,9 @@ namespace QuickLook.Plugin.AsepriteViewer
 
         public void Init()
         {
+            if (!Directory.Exists(_tempPath))
+                Directory.CreateDirectory(_tempPath);
+
             ExePath = GetAseRegFileOpenWithPath();
             if (ExePath != default) return;
             foreach (var exeSparePath in _exeSparePaths)
@@ -59,6 +62,9 @@ namespace QuickLook.Plugin.AsepriteViewer
 
         public void Prepare(string path, ContextObject context)
         {
+            if (!Directory.Exists(_tempPath))
+                Directory.CreateDirectory(_tempPath);
+
             if (_notFound)
             {
                 context.PreferredSize = new Size { Width = 600, Height = 400 };
@@ -102,7 +108,7 @@ namespace QuickLook.Plugin.AsepriteViewer
                 _meta = new MetaProvider(_imagePath);
                 var size = _meta.GetSize();
                 if (!size.IsEmpty)
-                    context.SetPreferredSizeFit(size, 2);
+                    context.SetPreferredSizeFit(size, 0.8);
                 else
                     context.PreferredSize = new Size(800, 600);
 
@@ -114,7 +120,7 @@ namespace QuickLook.Plugin.AsepriteViewer
         {
             if (_notFound)
             {
-                var viewer = new Label { Content = "未知文件的打开方式，请配置正确的默认打开方式后重启应用。" };
+                var viewer = new Label { Content = "default open with?" };
 
                 context.ViewerContent = viewer;
                 context.Title = $"{Path.GetFileName(path)}";
@@ -171,7 +177,5 @@ namespace QuickLook.Plugin.AsepriteViewer
             }
             return str.ToString();
         }
-
-
     }
 }
