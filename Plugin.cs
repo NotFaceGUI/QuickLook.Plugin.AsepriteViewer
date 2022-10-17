@@ -20,6 +20,7 @@ namespace QuickLook.Plugin.AsepriteViewer
     public class Plugin : IViewer
     {
         public static string ExePath;
+        public static bool NotFound;
 
         private readonly string[] _formats = { ".ase", ".aseprite" };
         private readonly string _tempPath = Path.GetTempPath() + "quick-look-ase";
@@ -34,7 +35,6 @@ namespace QuickLook.Plugin.AsepriteViewer
         private ImagePanel _image;
         private MetaProvider _meta;
 
-        private bool _notFound;
 
         public int Priority => 0;
 
@@ -44,15 +44,26 @@ namespace QuickLook.Plugin.AsepriteViewer
                 Directory.CreateDirectory(_tempPath);
 
             ExePath = GetAseRegFileOpenWithPath();
+
             if (ExePath != default) return;
+
             foreach (var exeSparePath in _exeSparePaths)
             {
                 if (File.Exists(exeSparePath))
                     ExePath = exeSparePath;
             }
 
+            var tempPathConfig = _tempPath + "/config";
+            if (File.Exists(tempPathConfig))
+            {
+                var readLines = File.ReadLines(tempPathConfig);
+                foreach (var readLine in readLines)
+                    ExePath = readLine;
+            }
+            else
+                File.Create(tempPathConfig);
             if (ExePath == default)
-                _notFound = true;
+                NotFound = true;
         }
 
         public bool CanHandle(string path)
@@ -62,10 +73,9 @@ namespace QuickLook.Plugin.AsepriteViewer
 
         public void Prepare(string path, ContextObject context)
         {
-            if (!Directory.Exists(_tempPath))
-                Directory.CreateDirectory(_tempPath);
 
-            if (_notFound)
+
+            if (NotFound)
             {
                 context.PreferredSize = new Size { Width = 600, Height = 400 };
             }
@@ -73,7 +83,8 @@ namespace QuickLook.Plugin.AsepriteViewer
             {
                 var fileName = Path.GetFileName(path);
                 var tempPath = Path.GetTempPath() + "quick-look-ase";
-
+                if (!Directory.Exists(tempPath))
+                    Directory.CreateDirectory(tempPath);
                 var fileInfo = new FileInfo(path);
                 var fileInfoLastWriteTime = fileInfo.LastWriteTime;
 
@@ -103,6 +114,7 @@ namespace QuickLook.Plugin.AsepriteViewer
                     cmdProcess.Start();
                     cmdProcess.WaitForExit();
                     cmdProcess.Close();
+
                 }
 
                 _meta = new MetaProvider(_imagePath);
@@ -118,9 +130,9 @@ namespace QuickLook.Plugin.AsepriteViewer
 
         public void View(string path, ContextObject context)
         {
-            if (_notFound)
+            if (NotFound)
             {
-                var viewer = new Label { Content = "default open with?" };
+                var viewer = new Label { Content = "default open with?\nplan A: Set default open with  \nplan B: open %temp%\\quick-look-ase\nmodify config file Add the path of your Aseprite.exe" };
 
                 context.ViewerContent = viewer;
                 context.Title = $"{Path.GetFileName(path)}";
@@ -161,7 +173,12 @@ namespace QuickLook.Plugin.AsepriteViewer
             var classesRoot = Registry.ClassesRoot;
             var software = classesRoot.OpenSubKey("AsepriteFile\\shell\\open\\command");
             if (software == null)
-                return default;
+            {
+                software = classesRoot.OpenSubKey("aseprite_auto_file\\shell\\open\\command");
+                if (software == null)
+                    return default;
+            }
+
             var value = ((string)software.GetValue(""))?.Replace("\"", "").Replace("%1", "").TrimEnd();
             return value;
         }

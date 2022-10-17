@@ -72,7 +72,6 @@
     <Compile Include="AseRead\AseBuffer.cs" />
     <Compile Include="AseRead\AsepriteFile.cs" />
     <Compile Include="AseRead\AseReadFile.cs" />
-    <Compile Include="GitVersion.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

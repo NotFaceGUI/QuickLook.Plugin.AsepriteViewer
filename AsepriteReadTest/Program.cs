@@ -40,5 +40,6 @@ namespace AsepriteReadTest
             var value = ((string)software?.GetValue(""))?.Replace("\"", "").Replace("%1", "").TrimEnd();
             return value;
         }
+    }
 }
 
