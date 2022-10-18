@@ -107,7 +107,7 @@ namespace QuickLook.Plugin.AsepriteViewer
                             CreateNoWindow = true,
                             UseShellExecute = false,
                             Arguments =
-                                $"/c {ExePath} -b {path} --save-as {_imagePath}"
+                                "/c " + "@\"" + ExePath + "\"" + " -b " + "\"" + path + "\"" +  " --save-as " + "\"" +  _imagePath + "\""
                         }
                     };
 
@@ -116,6 +116,8 @@ namespace QuickLook.Plugin.AsepriteViewer
                     cmdProcess.Close();
 
                 }
+
+
 
                 _meta = new MetaProvider(_imagePath);
                 var size = _meta.GetSize();
