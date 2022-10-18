@@ -5,6 +5,12 @@
 
 <img title="" src="img/ase.png" alt="" data-align="center">
 
+## Image Cache 
+`%temp%/quick-look-ase`
+
+## Error: Default Open With？
+Add your Aseprite.exe path to the file `%temp%/quick-look-ase/Config` or Set Default Open With.
+
 ## Download and Installation
 
 1. Go to [Release page](https://github.com/NotFaceGUI/QuickLook.Plugin.AsepriteViewer/releases) and download the latest version.
