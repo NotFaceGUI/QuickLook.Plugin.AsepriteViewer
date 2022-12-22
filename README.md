@@ -9,7 +9,7 @@
 `%temp%/quick-look-ase`
 
 ## Error: Default Open With？
-Add your Aseprite.exe path to the file `%temp%/quick-look-ase/Config` or Set Default Open With.
+`%temp%/quick-look-ase/Config`
 
 ## Download and Installation
 
